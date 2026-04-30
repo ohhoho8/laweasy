@@ -1,5 +1,5 @@
 import Header from "./Header";
-//import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar";
 
 export default function MainLayout({
   children,
@@ -8,10 +8,10 @@ export default function MainLayout({
 }) {
   return (
     <div className="min-h-screen bg-white">
-      
+      <Header />
+      <Sidebar />
 
       <div className="ml-64">
-        <Header />
 
         <main className="px-8 py-6">
           {children}
