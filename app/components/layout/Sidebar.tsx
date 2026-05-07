@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   Sparkles,
   Layers,
@@ -8,6 +12,8 @@ import {
 } from "lucide-react";
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
   return (
     <aside className="w-[324px] min-h-screen bg-white rounded-[28px] shadow-sm flex flex-col">
       {/* Logo */}
@@ -27,13 +33,24 @@ export default function Sidebar() {
 
       {/* Menu */}
       <nav className="flex-1 px-10 py-10 space-y-7">
-        <div className="flex items-center gap-4 text-[#160713] font-bold">
-          <Sparkles size={22} />
-          <span>로이지 AI한테 질문하기</span>
-        </div>
+        <MenuItem
+          icon={<Sparkles size={22} />}
+          text="로이지 AI한테 질문하기"
+          href="/chat"
+          active={pathname === "/chat"}
+        />
 
-        <MenuItem icon={<Layers size={22} />} text="내 사건 관리" />
-        <MenuItem icon={<Home size={22} />} text="법원 홈페이지" />
+        <MenuItem
+          icon={<Layers size={22} />}
+          text="내 사건 관리"
+          href="/cases"
+          active={pathname.startsWith("/cases")}
+        />
+
+        <MenuItem
+          icon={<Home size={22} />}
+          text="법원 홈페이지"
+        />
 
         <div>
           <MenuItem icon={<FileText size={22} />} text="주요법원서식" />
@@ -73,7 +90,6 @@ export default function Sidebar() {
           </button>
         </div>
 
-        {/* User */}
         <div className="mt-6 bg-white rounded-full shadow-sm px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <img
@@ -96,14 +112,32 @@ export default function Sidebar() {
 function MenuItem({
   icon,
   text,
+  href,
+  active = false,
 }: {
   icon: React.ReactNode;
   text: string;
+  href?: string;
+  active?: boolean;
 }) {
-  return (
-    <div className="flex items-center gap-4 text-gray-300 font-semibold">
+  const content = (
+    <div
+      className={`flex items-center gap-4 font-semibold transition ${
+        active ? "text-[#160713]" : "text-gray-300 hover:text-[#160713]"
+      }`}
+    >
       {icon}
       <span>{text}</span>
     </div>
   );
+
+  if (href) {
+    return (
+      <Link href={href} className="block">
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
 }
