@@ -1,4 +1,12 @@
+'use client';
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function Home() {
+  const [checked, setChecked] = useState(false);
+  const router = useRouter();
+
   return (
     <div className="flex min-h-full items-center justify-center pt-8">
       <section className="w-[720px] rounded-[22px] bg-white px-20 py-12 shadow-sm">
@@ -37,12 +45,19 @@ export default function Home() {
           <input
             type="checkbox"
             className="h-6 w-6 rounded border-slate-300 accent-violet-600"
+            onChange={(e) => setChecked(e.target.checked)}
           />
           <span>(필수) 개인정보 수집 및 처리 동의</span>
         </label>
 
         <div className="mt-5 flex justify-center">
-          <button className="w-[270px] rounded-full bg-zinc-100 py-3 text-xl font-bold text-[#170013]">
+          <button
+            disabled={!checked}
+            onClick={() => router.push("/chat")}
+            className={`w-full mt-4 py-2 rounded-lg ${
+              checked ? "bg-purple-500 text-white" : "bg-gray-200"
+            }`}
+          >
             동의합니다
           </button>
         </div>
