@@ -1,65 +1,67 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const [checked, setChecked] = useState(false);
+  const router = useRouter();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex min-h-full items-center justify-center pt-8">
+      <section className="w-[720px] rounded-[22px] bg-white px-20 py-12 shadow-sm">
+        <h1 className="text-center text-4xl font-bold text-[#170013]">
+          로이지 AI 시작하기
+        </h1>
+
+        <div className="mt-7 flex items-center justify-center gap-2 text-2xl font-bold text-[#170013]">
+          <span>로이지 AI 사용 예시 알아보기</span>
+          <span className="text-xl">⌄</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="mt-5 space-y-2">
+          <button className="w-full rounded-full border border-slate-200 px-10 py-4 text-left text-lg leading-relaxed text-slate-500">
+            친구한테 2023년 5월 500만 원을 빌려 주었는데 아직도 못 받고 있습니다.
+            어떻게 하면 돌려받을 수 있나요?
+          </button>
+
+          <button className="w-full rounded-full border border-slate-200 px-10 py-4 text-left text-lg leading-relaxed text-slate-500">
+            나쁜 주식회사와 2024년 6월 1일에 용역계약을 체결했는데 대금
+            3,000만 원을 지불하지 않고 있습니다.
+          </button>
         </div>
-      </main>
+
+        <div className="mt-9 border border-slate-200 px-8 py-5 text-center text-lg leading-9 text-slate-500">
+          자사 LawEasy는 수집가능한 법률문서 데이터, 법령, 판례를 기초로
+          <br />
+          일반적인 상황에 대한 법률문서를 제공하고 있으며,
+          <br />
+          로이지 AI로 생성된 실제 구체적 사안에 대한 최종 사용에 대한
+          <br />
+          유효 등에 대한 보장이나 책임을 지지 않습니다.
+        </div>
+
+        <label className="mt-5 flex cursor-pointer items-center justify-center gap-3 text-xl font-bold text-violet-600">
+          <input
+            type="checkbox"
+            className="h-6 w-6 rounded border-slate-300 accent-violet-600"
+            onChange={(e) => setChecked(e.target.checked)}
+          />
+          <span>(필수) 개인정보 수집 및 처리 동의</span>
+        </label>
+
+        <div className="mt-5 flex justify-center">
+          <button
+            disabled={!checked}
+            onClick={() => router.push("/chat")}
+            className={`w-full mt-4 py-2 rounded-lg ${
+              checked ? "bg-purple-500 text-white" : "bg-gray-200"
+            }`}
+          >
+            동의합니다
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
